@@ -11,8 +11,19 @@ namespace three_in_a_row
     {
         static void Main(string[] args)
         {
+            //Failsafe if wrong input or selected playing field is taken
+            bool playerChoice = false;
+            //Counter that increases after every round
+            int drawCounter = 0;
+            //Playersymbol saved as char. Player one uses X, while player two uses O.
+            char playerSymbol = ' ';
+            //We save the input from the functions GetPlayerCharInput & GetPlayerIntInput in an String Array
+            string[] playerInput = new string[2];
+
+            //We save the player inside an integer
+            int player = 1;
+
             //Coordinate system for the game, from A-D and 1-4.
-             
             string[] row = new string[]
             {
                 "A","B", "C","D"
@@ -27,6 +38,18 @@ namespace three_in_a_row
             for (int i = 0; i < playerMark.Length; i++)
             {
                 playerMark[i] = "";
+            }
+
+           
+            while (drawCounter > 15)
+            {
+                do
+                {
+                    //                          Insert fuction that show playing field
+                    playerSymbol = 'X';
+                    playerInput[0] = Convert.ToString(GameFunctions.GameFunctions.GetPlayerCharInput(player));
+                }
+                while (!playerChoice);
             }
 
 
@@ -46,6 +69,7 @@ namespace three_in_a_row
 
 
 
-        }
+
+            }
     }
 }

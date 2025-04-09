@@ -25,9 +25,9 @@ namespace GameFunctions
                 charInput = Convert.ToChar(Console.ReadLine());
                 charInput = char.ToUpper(charInput);
                 //Check if CharInput is a Char, is between A-D, is not null or empty. 
-                if (charInput != ' ' && charInput != null)
+                if (charInput != ' ' || charInput != null)
                 {
-                    if (charInput < 'A' && charInput > 'D')
+                    if (charInput >= 'A' && charInput <= 'D')
                     {
                         Console.WriteLine("Error - Please choose a row: ");
                     }
@@ -57,7 +57,7 @@ namespace GameFunctions
                 //Check if intInput is a int, is between 1-4. 
                 if (int.TryParse(Console.ReadLine(), out intInput))
                 {
-                    if (intInput < 1 && intInput > 4)
+                    if (intInput >= 1 && intInput <= 4)
                     {
                         Console.WriteLine("Error - Please choose a coloumn: ");
                     }
@@ -71,12 +71,12 @@ namespace GameFunctions
         }
 
         //Function that transforms containing value of string into a Index
-        public static string ConvertInputToIndex(char CharInput, int IntInput)
+        public static int ConvertInputToIndex(char CharInput, int IntInput)
         {
             int rowIndex = CharInput - 'A';
             int coloumnIndex = IntInput - 1;
-            string returnstring = Convert.ToString((rowIndex * 4) + coloumnIndex);
-            return returnstring;
+            int index = ((rowIndex * 4) + coloumnIndex);
+            return index;
         }
 
         //Function that checks if inside of the playing field in vertical way same symbols are found

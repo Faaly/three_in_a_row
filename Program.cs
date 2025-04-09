@@ -49,7 +49,12 @@ namespace three_in_a_row
                     playerSymbol = 'X';
                     playerInput[0] = Convert.ToString(GameFunctions.GameFunctions.GetPlayerCharInput(player));
                     playerInput[1] = Convert.ToString(GameFunctions.GameFunctions.GetPlayerIntInput(player));
-                    int Index = (GameFunctions.GameFunctions.ConvertInputToIndex(playerInput[0], playerInput[1]));
+
+                    char charInput = playerInput[0][0];
+                    int intInput = int.Parse(playerInput[1]);
+                    int Index = (GameFunctions.GameFunctions.ConvertInputToIndex(charInput, intInput));
+
+
                 }
                 while (!playerChoice);
             }

@@ -1,2 +1,0 @@
-C:\Users\Faal_\source\repos\three_in_a_row\three_in_a_row\obj\Debug\three_in_a_row.csproj.AssemblyReference.cache
-C:\Users\Faal_\source\repos\three_in_a_row\three_in_a_row\obj\Debug\three_in_a_row.csproj.CoreCompileInputs.cache

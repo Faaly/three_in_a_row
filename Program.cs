@@ -48,6 +48,8 @@ namespace three_in_a_row
                     //                          Insert fuction that show playing field
                     playerSymbol = 'X';
                     playerInput[0] = Convert.ToString(GameFunctions.GameFunctions.GetPlayerCharInput(player));
+                    playerInput[1] = Convert.ToString(GameFunctions.GameFunctions.GetPlayerIntInput(player));
+                    int Index = (GameFunctions.GameFunctions.ConvertInputToIndex(playerInput[0], playerInput[1]));
                 }
                 while (!playerChoice);
             }

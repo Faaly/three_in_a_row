@@ -22,20 +22,36 @@ namespace GameFunctions
                 //The Console presents meanwhile the playing field. 
                 //Player will input between from A-D. Input will be converted to upper case Char
                 Console.Write("Please choose a row: ");
-                charInput = Convert.ToChar(Console.ReadLine());
-                charInput = char.ToUpper(charInput);
+                string placeHolder = Console.ReadLine();
+
+
+
+
+                
                 //Check if CharInput is a Char, is between A-D, is not null or empty. 
-                if (charInput != ' ' || charInput != null)
+                if (string.IsNullOrEmpty(placeHolder))
                 {
-                    if (charInput >= 'A' && charInput <= 'D')
-                    {
-                        Console.WriteLine("Error - Please choose a row: ");
-                    }
+                    Console.WriteLine("Error - Invalid Input - Please choose a row: ");
+                    Console.ReadLine();
+                }
+
+                if(placeHolder.Length != 1)
+                {
+                    Console.WriteLine("Error - Only one char allowed. - Please choose a row: ");
+                }
+
+                charInput = Convert.ToChar(placeHolder[0]);
+                charInput = char.ToUpper(charInput);
+
+
+                if (charInput >= 'A' && charInput <= 'D')
+                {
+                    charInputCheck = true;
                 }
                 else //If checks are valid, player will leave loop.
                      //elsewise player has to enter again his input.
                 {
-                    charInputCheck = true;
+                    Console.WriteLine("Error - Invalid Char Input - Please choose a row: ");
                 }
             } while (charInputCheck == false);
             return charInput;
@@ -59,12 +75,13 @@ namespace GameFunctions
                 {
                     if (intInput >= 1 && intInput <= 4)
                     {
-                        Console.WriteLine("Error - Please choose a coloumn: ");
+                        intInputCheck = true;
                     }
                 }
                 else //If checks are valid, player will leave loop.
                 {
-                    intInputCheck = true;
+                    
+                    Console.WriteLine("Error - Please choose a coloumn: ");
                 }
             } while (intInputCheck == false);
             return intInput;
@@ -76,6 +93,7 @@ namespace GameFunctions
             int rowIndex = CharInput - 'A';
             int coloumnIndex = IntInput - 1;
             int index = ((rowIndex * 4) + coloumnIndex);
+            Console.WriteLine($"Index is: {index}");
             return index;
         }
 
@@ -88,7 +106,7 @@ namespace GameFunctions
 
             //Check field above
             checkedField = index - 4;
-            while (checkedField >= 0 && playerMark[checkedField] == playerSymbol)
+            while (checkedField >= 0 && playerMark[checkedField] == playerSymbol) 
             {
                 //When condition true, increase loseCounter +1
                 loseCounter++;
@@ -112,6 +130,7 @@ namespace GameFunctions
             {
                 Console.WriteLine($"Player {player} has lost the game!");
                 Console.ReadLine();
+                //Environment.Exit(0);
             }
         }
 
@@ -136,7 +155,7 @@ namespace GameFunctions
 
             //Check field below
             checkedField = index + 1;
-            while (checkedField < 16 && playerMark[checkedField] == playerSymbol)
+            while (checkedField <= 16 && playerMark[checkedField] == playerSymbol)
             {
                 //When condition true, increase loseCounter +1
                 loseCounter++;
@@ -149,6 +168,7 @@ namespace GameFunctions
             {
                 Console.WriteLine($"Player {player} has lost the game!");
                 Console.ReadLine();
+                //Environment.Exit(0);
             }
         }
 
@@ -160,7 +180,7 @@ namespace GameFunctions
             int checkedField;
 
             //Check field RightUp
-            checkedField = index + 3;
+            checkedField = index - 3;
             while (checkedField >= 0 && playerMark[checkedField] == playerSymbol)
             {
                 //When condition true, increase loseCounter +1
@@ -171,7 +191,48 @@ namespace GameFunctions
             }
 
             //Check field leftDown
-            checkedField = index - 3;
+            checkedField = index + 3;
+            while (checkedField <= 16 && playerMark[checkedField] == playerSymbol)
+            {
+                //When condition true, increase loseCounter +1
+                loseCounter++;
+                //move one field to the left and down
+                checkedField -= 3;
+                //Loop repeats if condition is true, else loop ends.
+            }
+
+            if (loseCounter >= 2)
+            {
+                Console.WriteLine($"Player {player} has lost the game!");
+                Console.ReadLine();
+                //Environment.Exit(0);
+            }
+
+
+
+
+
+        }
+
+        public static void Diagonal2Check(int index, int player, string playerMark, int playerSymbol)
+        {
+            //initialized loseCounter with 0.
+            int loseCounter = 0;
+            int checkedField;
+
+            //Check field leftUp
+            checkedField = index - 5;
+            while (checkedField >= 0 && playerMark[checkedField] == playerSymbol)
+            {
+                //When condition true, increase loseCounter +1
+                loseCounter++;
+                //move one field to the right and up
+                checkedField += 3;
+                //Loop repeats if condition is true, else loop ends.
+            }
+
+            //Check field rightDown
+            checkedField = index + 5;
             while (checkedField < 16 && playerMark[checkedField] == playerSymbol)
             {
                 //When condition true, increase loseCounter +1
@@ -185,6 +246,7 @@ namespace GameFunctions
             {
                 Console.WriteLine($"Player {player} has lost the game!");
                 Console.ReadLine();
+                //Environment.Exit(0);
             }
 
 
@@ -192,7 +254,6 @@ namespace GameFunctions
 
 
         }
-
 
     }
 }

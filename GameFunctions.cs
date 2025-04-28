@@ -9,14 +9,13 @@ namespace GameFunctions
 	    public GameFunctions()
 	    {
         }
-
-
         //Function that ask the player for input
         //Input will be checked if char input is valid.
         public static string GetPlayerRowInput(int player)
         {
             string rowInput;
             bool rowInputCheck = false;
+            const string C_anyKey = "     Please press any key";
             do
             {
                 //We ask the player for input.
@@ -24,12 +23,11 @@ namespace GameFunctions
                 //Player will input between from A-D. Input will be converted to upper case Char
                 Console.Write("Please choose a row: ");
                 rowInput = Console.ReadLine();
-                rowInput = rowInput.ToUpper();
-                rowInput = rowInput[0].ToString();
-
                 //Check if rowInput is between A-D & is not null or empty. 
-                if (rowInput != " " || rowInput != "")
+                if (!string.IsNullOrEmpty(rowInput) && rowInput != " " && rowInput != "" )
                 {
+                    rowInput = rowInput.ToUpper();
+                    rowInput = rowInput[0].ToString();
 
                     if (rowInput[0] >= 'A' && rowInput[0] <= 'D')
                     {
@@ -48,7 +46,7 @@ namespace GameFunctions
                                 rowInput = "3";
                                 break;
                             default:
-                                Console.WriteLine("Warning! - Switch Case Exeption occured!");
+                                Console.WriteLine($"Warning! - Switch Case Exeption occured!\n{C_anyKey}");
                                 break;
                         }
                         rowInputCheck = true;
@@ -56,11 +54,12 @@ namespace GameFunctions
                     else //If checks are valid, player will leave loop.
                          //elsewise player has to enter again his input.
                     {
-                        Console.WriteLine("Error - Invalid Char Input - Please choose a row: ");
+                        Console.WriteLine($"Error - Invalid Char Input.\n{C_anyKey}");
+                        Console.ReadLine();
                     }
                 } else
                 {
-                    Console.WriteLine("Error - Input is null or empty - Please choose a row: ");
+                    Console.WriteLine($"Error - Input is null or empty.\n{C_anyKey}");
                     Console.ReadLine();
 
                 }
@@ -106,39 +105,44 @@ namespace GameFunctions
         {
             //initialized loseCounter with 0.
             int loseCounter = 0;
-
-
             //Check field above if playerSymbol is found on playerMark and r is greater or equal to 0
-            while (r >= 0 && playerMark[r, c].Equals(playerSymbol))
+            while (c >= 0)
             {
+                if (playerMark[r, c].Contains(Convert.ToString(playerSymbol))){
+                    loseCounter += 1;
+                }
+                else
+                {
+                    break;
+                }
                 //When condition true, increase loseCounter +1
-                loseCounter++;
                 //move one field above
-                if (r != 0)
-                {
-                    r--;
-                }
+                c -= 1;
                 //Loop repeats if condition is true, else loop ends.
             }
-
             //Check field below if playerSymbol is found on playerMark and r is less or equal to 3
-            while (r <= 3 && playerMark[r, c].Equals(playerSymbol))
+            while (c <= 3)
             {
-                //When condition true, increase loseCounter +1
-                loseCounter++;
-                //move one field below
-                if (r != 3)
+                if (playerMark[r, c].Contains(Convert.ToString(playerSymbol)))
                 {
-                    r++;
+                    loseCounter += 1;
                 }
+                else {
+                    break;
+                }
+                //When condition true, increase loseCounter +1
+
+                //move one field below
+
+                c += 1;
                 //Loop repeats if condition is true, else loop ends.
             }
 
-            if (loseCounter >= 2)
+            if (loseCounter >= 3)
             {
                 Console.WriteLine($"Player {player} has lost the game!");
                 Console.ReadLine();
-                //Environment.Exit(0);
+                Environment.Exit(0);
             }
         }
 
@@ -175,7 +179,7 @@ namespace GameFunctions
                 //Loop repeats if condition is true, else loop ends.
             }
 
-            if (loseCounter >= 2)
+            if (loseCounter >= 3)
             {
                 Console.WriteLine($"Player {player} has lost the game!");
                 Console.ReadLine();
@@ -218,7 +222,7 @@ namespace GameFunctions
                 //Loop repeats if condition is true, else loop ends.
             }
 
-            if (loseCounter >= 2)
+            if (loseCounter >= 3)
             {
                 Console.WriteLine($"Player {player} has lost the game!");
                 Console.ReadLine();
@@ -274,7 +278,7 @@ namespace GameFunctions
 
         public static void PlayingField(string[,] playerMark, int player, char playerSymbol)
         {
-            //Console.Clear();
+            Console.Clear();
             const string C_rows = "     A   B   C   D";
             const string C_playingfield = "   +---+---+---+---+";
             Console.WriteLine($"    Player {player} - your symbole: {playerSymbol}\n\n");
@@ -285,7 +289,7 @@ namespace GameFunctions
                 Console.Write($" {i + 1} |");
                 for (int j = 0; j < 4; j++)
                 {
-                    Console.Write($" {playerMark[i, j]} |");
+                    Console.Write($" {playerMark[j, i]} |");
                     
                 }
                 Console.WriteLine();

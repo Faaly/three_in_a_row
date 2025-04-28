@@ -33,7 +33,6 @@ namespace three_in_a_row
                 }
 
             }
-
             //Failsafe if wrong input or selected playing field is taken
             bool playerChoice = false;
             //Counter that increases after every round
@@ -55,8 +54,7 @@ namespace three_in_a_row
                     GameFunctions.GameFunctions.PlayingField(playerMark, player, playerSymbol);
                     int.TryParse(GameFunctions.GameFunctions.GetPlayerRowInput(player), out r);
                     c = GameFunctions.GameFunctions.GetPlayerColumnInput(player);
-                    Console.WriteLine($"AFT P1 GetPlayerRow/Column      LOG: Player:{player} - r: {r} - c: {c} - DrawCounter: {drawCounter}\n      ");
-
+                   
                     // Wir prüfen mittels einer IF Abfrage ob das Spielfeld belegt ist.
                     // Falls der Fall true ist, gibt es eine Ausgabe an den Spieler.
                     if (playerMark[r, c] != " ")
@@ -81,7 +79,6 @@ namespace three_in_a_row
                     drawCounter++;
                 }
                 while (!playerChoice);
-                Console.WriteLine($" Btwn while/do - - - LOG: Player:{player} - r: {r} - c: {c} - DrawCounter: {drawCounter}\n      ");
                 // Operator, der zwischen den Spielern wechselt. Wenn Player 1 false, dann Player 1
                 player = (player == 1) ? 2 : 1;
                 playerSymbol = (playerSymbol == 'O') ? 'X' : 'O';
@@ -92,8 +89,7 @@ namespace three_in_a_row
                     GameFunctions.GameFunctions.PlayingField(playerMark, player, playerSymbol);
                     int.TryParse(GameFunctions.GameFunctions.GetPlayerRowInput(player), out r);
                     c = GameFunctions.GameFunctions.GetPlayerColumnInput(player);
-                    Console.WriteLine($"AFT P2 GetPlayerRow/Column      LOG: Player:{player} - r: {r} - c: {c} - DrawCounter: {drawCounter}\n      ");
-
+                    
                 // Wir prüfen mittels einer IF Abfrage ob das Spielfeld belegt ist.
                 // Falls der Fall true ist, gibt es eine Ausgabe an den Spieler.
                 if (playerMark[r, c] != " ")
@@ -132,87 +128,6 @@ namespace three_in_a_row
             {
                 Console.WriteLine($"Error - left while(drawCounter > 15) loop while drawCounter is {drawCounter}.");
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-            /*
-
-
-                                VerticalCheck(Index, Player, PlayerSymbol)
-                                HorizontalCheck(Index, Player, PlayerSymbol)
-                                Diagonal1Check(Index, Player, PlayerSymbol)
-                                Diagonal2Check(Index, Player, PlayerSymbol)
-
-
-                                DrawCounter++
-                            END DO(!Playerchoice) //Beenden die DO Schleife
-
-                            // Operator, der zwischen den Spielern wechselt. Wenn Player 1 true, dann Player 2
-                            Player = (Player == 1) ? 2 : 1
-
-                            DO
-                                // Hier eine Funktion, die das Spielfeld anzeigt.
-
-                                CHAR PlayerSymbol = "O"
-                                // Eingabe Spieler 2
-                                PlayerInput = GetPlayerInput(2)
-                                Int Index = ConvertInputToIndex(PlayerInput[1], PlayerInput[2])
-
-                                // Wir prüfen mittels einer IF Abfrage ob das Spielfeld belegt ist.
-                                // Falls der Fall true ist, gibt es eine Ausgabe an den Spieler.
-                                IF PlayerMark[Index] != "" THEN
-                                    OUTPUT "Spielfeld nicht frei!"
-                                ELSE
-                                    // Falls das Spielfeld frei ist, also der Fall false, wird der failsafe Playerchoice
-                                    // true geschaltet, damit die DO-WHILE Schleife abbricht und das Spielersymbol "O"
-                                    // wird auf das Spielfeld mit dem Index gesetzt.
-                                    PlayerMark[Index] = "PlayerSymbol"
-                                    Playerchoice = true
-                                END IF
-
-                                VerticalCheck(Index, Player, PlayerSymbol)
-                                HorizontalCheck(Index, Player, PlayerSymbol)
-                                Diagonal1Check(Index, Player, PlayerSymbol)
-                                Diagonal2Check(Index, Player, PlayerSymbol)
-
-
-                                DrawCounter++
-                            END DO(!Playerchoice) //Beenden die DO Schleife
-                            // Operator, der zwischen den Spielern wechselt. Wenn Player 1 false, dann Player 1
-                            Player = (Player == 1) ? 2 : 1
-
-
-                        END WHILE
-
-                        //DrawCounter ist größer als 15, WHILE LOOP wird beendet und Spiel endet Unentschieden
-                        OUTPUT "Spiel Unentschieden!"
-
-
-
-                        */
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
     }
 }

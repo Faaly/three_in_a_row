@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 
 namespace GameFunctions
@@ -12,117 +13,124 @@ namespace GameFunctions
 
         //Function that ask the player for input
         //Input will be checked if char input is valid.
-        public static char GetPlayerCharInput(int player)
+        public static string GetPlayerRowInput(int player)
         {
-            char charInput;
-            bool charInputCheck = false;
+            string rowInput;
+            bool rowInputCheck = false;
             do
             {
                 //We ask the player for input.
                 //The Console presents meanwhile the playing field. 
                 //Player will input between from A-D. Input will be converted to upper case Char
                 Console.Write("Please choose a row: ");
-                string placeHolder = Console.ReadLine();
+                rowInput = Console.ReadLine();
+                rowInput = rowInput.ToUpper();
+                rowInput = rowInput[0].ToString();
 
-
-
-
-                
-                //Check if CharInput is a Char, is between A-D, is not null or empty. 
-                if (string.IsNullOrEmpty(placeHolder))
+                //Check if rowInput is between A-D & is not null or empty. 
+                if (rowInput != " " || rowInput != "")
                 {
-                    Console.WriteLine("Error - Invalid Input - Please choose a row: ");
+
+                    if (rowInput[0] >= 'A' && rowInput[0] <= 'D')
+                    {
+                        switch (rowInput)
+                        {
+                            case "A":
+                                rowInput = "0";
+                                break;
+                            case "B":
+                                rowInput = "1";
+                                break;
+                            case "C":
+                                rowInput = "2";
+                                break;
+                            case "D":
+                                rowInput = "3";
+                                break;
+                            default:
+                                Console.WriteLine("Warning! - Switch Case Exeption occured!");
+                                break;
+                        }
+                        rowInputCheck = true;
+                    }
+                    else //If checks are valid, player will leave loop.
+                         //elsewise player has to enter again his input.
+                    {
+                        Console.WriteLine("Error - Invalid Char Input - Please choose a row: ");
+                    }
+                } else
+                {
+                    Console.WriteLine("Error - Input is null or empty - Please choose a row: ");
                     Console.ReadLine();
+
                 }
 
-                if(placeHolder.Length != 1)
-                {
-                    Console.WriteLine("Error - Only one char allowed. - Please choose a row: ");
-                }
-
-                charInput = Convert.ToChar(placeHolder[0]);
-                charInput = char.ToUpper(charInput);
 
 
-                if (charInput >= 'A' && charInput <= 'D')
-                {
-                    charInputCheck = true;
-                }
-                else //If checks are valid, player will leave loop.
-                     //elsewise player has to enter again his input.
-                {
-                    Console.WriteLine("Error - Invalid Char Input - Please choose a row: ");
-                }
-            } while (charInputCheck == false);
-            return charInput;
+            } while (rowInputCheck == false);
+            return rowInput;
         }
 
         //Function that ask the player for int input
         //Input will be checked if int input is valid.
-        public static int GetPlayerIntInput(int player)
+        public static int GetPlayerColumnInput(int player)
         {
-            int intInput;
-            bool intInputCheck = false;
+            int columnInput;
+            bool columnInputCheck = false;
             do
             {
                 //We ask the player for input.
                 //The Console presents meanwhile the playing field. 
                 //Player will input between from 1-4. Input will be converted to int32
-                Console.Write("Please choose a coloumn: ");
+                Console.Write("Please choose a column: ");
 
                 //Check if intInput is a int, is between 1-4. 
-                if (int.TryParse(Console.ReadLine(), out intInput))
+                if (int.TryParse(Console.ReadLine(), out columnInput))
                 {
-                    if (intInput >= 1 && intInput <= 4)
+                    if (columnInput >= 1 && columnInput <= 4)
                     {
-                        intInputCheck = true;
+                        columnInputCheck = true;
+                        columnInput -= 1;
                     }
                 }
                 else //If checks are valid, player will leave loop.
                 {
-                    
-                    Console.WriteLine("Error - Please choose a coloumn: ");
+                    Console.WriteLine("Error - Please choose a column: ");
                 }
-            } while (intInputCheck == false);
-            return intInput;
-        }
-
-        //Function that transforms containing value of string into a Index
-        public static int ConvertInputToIndex(char CharInput, int IntInput)
-        {
-            int rowIndex = CharInput - 'A';
-            int coloumnIndex = IntInput - 1;
-            int index = ((rowIndex * 4) + coloumnIndex);
-            Console.WriteLine($"Index is: {index}");
-            return index;
+            } while (columnInputCheck == false);
+            return columnInput;
         }
 
         //Function that checks if inside of the playing field in vertical way same symbols are found
-        public static void VerticalCheck(int index, int player, string playerMark, int playerSymbol)
+        public static void VerticalCheck(int player, string[,] playerMark, int r, int c, char playerSymbol)
         {
             //initialized loseCounter with 0.
             int loseCounter = 0;
-            int checkedField;
 
-            //Check field above
-            checkedField = index - 4;
-            while (checkedField >= 0 && playerMark[checkedField] == playerSymbol) 
+
+            //Check field above if playerSymbol is found on playerMark and r is greater or equal to 0
+            while (r >= 0 && playerMark[r, c].Equals(playerSymbol))
             {
                 //When condition true, increase loseCounter +1
                 loseCounter++;
                 //move one field above
-                checkedField -= 4;
+                if (r != 0)
+                {
+                    r--;
+                }
                 //Loop repeats if condition is true, else loop ends.
             }
 
-            //Check field below
-            checkedField = index + 4;
-            while (checkedField < 16 && playerMark[checkedField] == playerSymbol)
+            //Check field below if playerSymbol is found on playerMark and r is less or equal to 3
+            while (r <= 3 && playerMark[r, c].Equals(playerSymbol))
             {
                 //When condition true, increase loseCounter +1
                 loseCounter++;
                 //move one field below
-                checkedField += 4;
+                if (r != 3)
+                {
+                    r++;
+                }
                 //Loop repeats if condition is true, else loop ends.
             }
 
@@ -136,31 +144,34 @@ namespace GameFunctions
 
 
         //Function that checks if inside of the playing field in horizontal way same symbols are found
-        public static void HorizontalCheck(int index, int player, string playerMark, int playerSymbol)
+        public static void HorizontalCheck(int player, string[,] playerMark, int r, int c, char playerSymbol)
         {
             //initialized loseCounter with 0.
             int loseCounter = 0;
-            int checkedField;
 
-            //Check field above
-            checkedField = index - 1;
-            while (checkedField >= 0 && playerMark[checkedField] == playerSymbol)
+            //Check field to the left if playerSymbol is found on playerMark and c is greater or equal to 0 
+            while (c >= 0 && playerMark[r, c].Equals(playerSymbol))
             {
                 //When condition true, increase loseCounter +1
                 loseCounter++;
                 //move one field to the left
-                checkedField -= 1;
+                if (c != 0)
+                {
+                    c--;
+                }
                 //Loop repeats if condition is true, else loop ends.
             }
 
-            //Check field below
-            checkedField = index + 1;
-            while (checkedField <= 16 && playerMark[checkedField] == playerSymbol)
+            //Check field to the right if playerSymbol is found on playerMark and c is less or equal to 3 
+            while (c <= 3 && playerMark[r, c].Equals(playerSymbol) )
             {
                 //When condition true, increase loseCounter +1
                 loseCounter++;
                 //move one field to the right
-                checkedField += 1;
+                if (c != 3)
+                {
+                    c++;
+                }
                 //Loop repeats if condition is true, else loop ends.
             }
 
@@ -173,31 +184,37 @@ namespace GameFunctions
         }
 
         //Function that checks if inside of the playing field in diagonal way same symbols are found
-        public static void DiagonalCheck(int index, int player, string playerMark, int playerSymbol)
+        public static void DiagonalCheck(int player, string[,] playerMark, int r, int c, char playerSymbol)
         {
             //initialized loseCounter with 0.
             int loseCounter = 0;
-            int checkedField;
 
-            //Check field RightUp
-            checkedField = index - 3;
-            while (checkedField >= 0 && playerMark[checkedField] == playerSymbol)
+            //Check field to the right and up if playerSymbol is found on playerMark and r is greater or equal to 0 
+            while (r >= 0 && c >= 0 && r <= 3 && c <= 3 && playerMark[r, c].Equals(playerSymbol))
             {
                 //When condition true, increase loseCounter +1
                 loseCounter++;
                 //move one field to the right and up
-                checkedField += 3;
+                if (c != 3 && r != 0)
+                {
+                    r--;
+                    c++;
+                }
                 //Loop repeats if condition is true, else loop ends.
             }
 
             //Check field leftDown
-            checkedField = index + 3;
-            while (checkedField <= 16 && playerMark[checkedField] == playerSymbol)
+            
+            while (r >= 0 && c >= 0 && r <= 3 && c <= 3 && playerMark[r, c].Equals(playerSymbol))
             {
                 //When condition true, increase loseCounter +1
                 loseCounter++;
                 //move one field to the left and down
-                checkedField -= 3;
+                if (c != 0 && r != 3)
+                {
+                    r++;
+                    c--;
+                }
                 //Loop repeats if condition is true, else loop ends.
             }
 
@@ -214,31 +231,36 @@ namespace GameFunctions
 
         }
 
-        public static void Diagonal2Check(int index, int player, string playerMark, int playerSymbol)
+        public static void Diagonal2Check(int player, string[,] playerMark, int r, int c, char playerSymbol)
         {
             //initialized loseCounter with 0.
             int loseCounter = 0;
-            int checkedField;
 
             //Check field leftUp
-            checkedField = index - 5;
-            while (checkedField >= 0 && playerMark[checkedField] == playerSymbol)
+            while (r >= 0 && c >= 0 && r <= 3 && c <= 3 && playerMark[r, c].Equals(playerSymbol))
             {
                 //When condition true, increase loseCounter +1
                 loseCounter++;
-                //move one field to the right and up
-                checkedField += 3;
+                //move one field to the right and down
+                if (c != 0 && r != 3)
+                {
+                    r++;
+                    c++;
+                }
                 //Loop repeats if condition is true, else loop ends.
             }
 
             //Check field rightDown
-            checkedField = index + 5;
-            while (checkedField < 16 && playerMark[checkedField] == playerSymbol)
+            while (r >= 0 && c >= 0 && r <= 3 && c <= 3 && playerMark[r, c].Equals(playerSymbol))
             {
                 //When condition true, increase loseCounter +1
                 loseCounter++;
                 //move one field to the left and down
-                checkedField -= 3;
+                if (c != 0 && r != 3)
+                {
+                    r--;
+                    c--;
+                }
                 //Loop repeats if condition is true, else loop ends.
             }
 
@@ -248,12 +270,30 @@ namespace GameFunctions
                 Console.ReadLine();
                 //Environment.Exit(0);
             }
-
-
-
-
-
         }
+
+        public static void PlayingField(string[,] playerMark, int player, char playerSymbol)
+        {
+            //Console.Clear();
+            const string C_rows = "     A   B   C   D";
+            const string C_playingfield = "   +---+---+---+---+";
+            Console.WriteLine($"    Player {player} - your symbole: {playerSymbol}\n\n");
+            Console.WriteLine(C_rows);
+            Console.WriteLine(C_playingfield);
+            for (int i = 0; i < 4; i++)
+            {
+                Console.Write($" {i + 1} |");
+                for (int j = 0; j < 4; j++)
+                {
+                    Console.Write($" {playerMark[i, j]} |");
+                    
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine(C_playingfield);
+        }
+
+
 
     }
 }

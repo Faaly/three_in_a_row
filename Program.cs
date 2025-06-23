@@ -23,6 +23,7 @@ namespace three_in_a_row
                 "1","2","3","4"
             };
 
+            const string C_anyKey = "     Please press any key";
             //String to save mark of the player. 2D-Array will be initialized as emtpy "" via for-loop
             string[,] playerMark = new string[4, 4];
             for (int i = 0; i < playerMark.GetLength(0); i++)
@@ -50,7 +51,7 @@ namespace three_in_a_row
                 playerChoice = false;
                 do
                 {
-                    
+                    Console.Clear();
                     GameFunctions.GameFunctions.PlayingField(playerMark, player, playerSymbol);
                     int.TryParse(GameFunctions.GameFunctions.GetPlayerRowInput(player), out r);
                     c = GameFunctions.GameFunctions.GetPlayerColumnInput(player);
@@ -59,7 +60,9 @@ namespace three_in_a_row
                     // Falls der Fall true ist, gibt es eine Ausgabe an den Spieler.
                     if (playerMark[r, c] != " ")
                     {
-                        Console.WriteLine("Field is already taken.");
+                        Console.WriteLine($"Field is already taken.\n{C_anyKey}");
+                        Console.ReadLine();
+
                     }
                     // Falls das Spielfeld frei ist, also der Fall false, wird der failsafe Playerchoice
                     // true geschaltet, damit die DO-WHILE Schleife abbricht und das Spielersymbol X
@@ -70,9 +73,9 @@ namespace three_in_a_row
                         playerChoice = true;
 
                         GameFunctions.GameFunctions.VerticalCheck(player, playerMark, r, c, playerSymbol);
-                        //GameFunctions.GameFunctions.HorizontalCheck(player, playerMark, r, c, playerSymbol);
-                        //GameFunctions.GameFunctions.DiagonalCheck(player, playerMark,r, c, playerSymbol);
-                        //GameFunctions.GameFunctions.Diagonal2Check(player, playerMark,r, c, playerSymbol);
+                        GameFunctions.GameFunctions.HorizontalCheck(player, playerMark, r, c, playerSymbol);
+                        GameFunctions.GameFunctions.DiagonalCheck(player, playerMark,r, c, playerSymbol);
+                        GameFunctions.GameFunctions.Diagonal2Check(player, playerMark,r, c, playerSymbol);
                     }
 
                     //Erhöhung des drawCounters für abgeschlossene Spielerrunde
@@ -86,6 +89,7 @@ namespace three_in_a_row
                 playerChoice = false;
                 do
                     {
+                    Console.Clear();
                     GameFunctions.GameFunctions.PlayingField(playerMark, player, playerSymbol);
                     int.TryParse(GameFunctions.GameFunctions.GetPlayerRowInput(player), out r);
                     c = GameFunctions.GameFunctions.GetPlayerColumnInput(player);
@@ -94,7 +98,9 @@ namespace three_in_a_row
                 // Falls der Fall true ist, gibt es eine Ausgabe an den Spieler.
                 if (playerMark[r, c] != " ")
                 {
-                    Console.WriteLine("Field is already taken.");
+                    Console.WriteLine($"Field is already taken.\n{C_anyKey}");
+                    Console.ReadLine();
+
                 }
                 // Falls das Spielfeld frei ist, also der Fall false, wird der failsafe Playerchoice
                 // true geschaltet, damit die DO-WHILE Schleife abbricht und das Spielersymbol X
@@ -104,10 +110,10 @@ namespace three_in_a_row
                     playerMark[r, c] = Convert.ToString(playerSymbol);
                     playerChoice = true;
 
-                    GameFunctions.GameFunctions.VerticalCheck(player, playerMark, r, c, playerSymbol);
-                //    GameFunctions.GameFunctions.HorizontalCheck(player, playerMark, r, c, playerSymbol);
-                //    GameFunctions.GameFunctions.DiagonalCheck(player, playerMark, r, c, playerSymbol);
-                //    GameFunctions.GameFunctions.Diagonal2Check(player, playerMark, r, c, playerSymbol);
+                        GameFunctions.GameFunctions.VerticalCheck(player, playerMark, r, c, playerSymbol);
+                        GameFunctions.GameFunctions.HorizontalCheck(player, playerMark, r, c, playerSymbol);
+                        GameFunctions.GameFunctions.DiagonalCheck(player, playerMark, r, c, playerSymbol);
+                        GameFunctions.GameFunctions.Diagonal2Check(player, playerMark, r, c, playerSymbol);
                 }
 
                 //Erhöhung des drawCounters für abgeschlossene Spielerrunde

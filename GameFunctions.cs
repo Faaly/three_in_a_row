@@ -103,46 +103,77 @@ namespace GameFunctions
         //Function that checks if inside of the playing field in vertical way same symbols are found
         public static void VerticalCheck(int player, string[,] playerMark, int r, int c, char playerSymbol)
         {
+            //Starting coords
+            int temp_c = c;
+            int temp_r = r;
             //initialized loseCounter with 0.
             int loseCounter = 0;
-            //Check field above if playerSymbol is found on playerMark and r is greater or equal to 0
-            while (c >= 0)
+            //Check field above if playerSymbol is found on playerMark and c is greater or equal to 0
+            while (c >= 0) //C means for column. 1-4
             {
-                if (playerMark[r, c].Contains(Convert.ToString(playerSymbol))){
+                
+                if (playerMark[r, c].Contains(Convert.ToString(playerSymbol)))
+                {
+                    //Console.WriteLine($"Vertical Up -> feld is: {r}, {c}");
                     loseCounter += 1;
+                    //Console.WriteLine($"Ls = {loseCounter}");
+                }
+                else
+                {
+                    break;
+                }
+
+
+                //When condition true, increase loseCounter +1
+                //move one field above
+                if (c != 0)
+                {
+                    c--;
+                }
+                //Loop repeats if condition is true, else loop ends.
+                else
+                {
+                    break;
+                }
+            }
+
+            c = temp_c;
+            r = temp_r;
+            //Check field below if playerSymbol is found on playerMark and c is less or equal to 3
+            while (c <= 3)
+            {
+                if (playerMark[r, c].Contains(Convert.ToString(playerSymbol)))
+                {
+                    //Console.WriteLine($"Vertical down -> feld is: {r}, {c}");
+                    loseCounter += 1;
+                    //Console.WriteLine($"Ls = {loseCounter}");
                 }
                 else
                 {
                     break;
                 }
                 //When condition true, increase loseCounter +1
-                //move one field above
-                c -= 1;
-                //Loop repeats if condition is true, else loop ends.
-            }
-            //Check field below if playerSymbol is found on playerMark and r is less or equal to 3
-            while (c <= 3)
-            {
-                if (playerMark[r, c].Contains(Convert.ToString(playerSymbol)))
+                //move one field below
+                if (c != 3)
                 {
-                    loseCounter += 1;
+                    c += 1;
+
                 }
-                else {
+                else
+                {
                     break;
                 }
-                //When condition true, increase loseCounter +1
-
-                //move one field below
-
-                c += 1;
+                
                 //Loop repeats if condition is true, else loop ends.
             }
 
-            if (loseCounter >= 3)
+
+            if (loseCounter >= 4)
             {
                 Console.WriteLine($"Player {player} has lost the game!");
                 Console.ReadLine();
                 Environment.Exit(0);
+                //Spielfeld anzeigen!
             }
         }
 
@@ -150,31 +181,60 @@ namespace GameFunctions
         //Function that checks if inside of the playing field in horizontal way same symbols are found
         public static void HorizontalCheck(int player, string[,] playerMark, int r, int c, char playerSymbol)
         {
-            //initialized loseCounter with 0.
+            //initialized loseCounter with 1.
             int loseCounter = 0;
 
             //Check field to the left if playerSymbol is found on playerMark and c is greater or equal to 0 
-            while (c >= 0 && playerMark[r, c].Equals(playerSymbol))
+            while (r >= 0)
             {
-                //When condition true, increase loseCounter +1
-                loseCounter++;
-                //move one field to the left
-                if (c != 0)
+                if (playerMark[r, c].Contains(Convert.ToString(playerSymbol)))
                 {
-                    c--;
+                    Console.WriteLine($"Enter horizontal check \nlosecounter in while above in playermarkcheck = {loseCounter}\npm = {playerMark[r, c]} {r} | {c}");
+                    loseCounter += 1;
+                }
+                else
+                {
+                    break;
+                }
+                //When condition true, increase loseCounter +1
+
+                //move one field to the left
+                if (r != 0)
+                {
+                    Console.WriteLine($"Enter horizontal check IF check \nlosecounter in while above in playermarkcheck = {loseCounter}\npm = {playerMark[r, c]} {r} | {c}");
+
+                    r--;
+                }
+                else
+                {
+                    break;
                 }
                 //Loop repeats if condition is true, else loop ends.
             }
 
             //Check field to the right if playerSymbol is found on playerMark and c is less or equal to 3 
-            while (c <= 3 && playerMark[r, c].Equals(playerSymbol) )
+            while (r <= 3)
             {
-                //When condition true, increase loseCounter +1
-                loseCounter++;
-                //move one field to the right
-                if (c != 3)
+                if(playerMark[r, c].Contains(Convert.ToString(playerSymbol)))
                 {
-                    c++;
+                    Console.WriteLine($"Enter horizontal check pt2 \nlosecounter in while above in playermarkcheck = {loseCounter}\npm = {playerMark[r, c]} {r} | {c}");
+
+                    loseCounter++;
+                } else
+                {
+                    break;
+                }
+                //When condition true, increase loseCounter +1
+
+                //move one field to the right
+                if (r != 3)
+                {
+                    Console.WriteLine($"Enter horizontal check if check \nlosecounter in while above in playermarkcheck = {loseCounter}\npm = {playerMark[r, c]} {r} | {c}");
+
+                    r++;
+                } else 
+                { 
+                    break; 
                 }
                 //Loop repeats if condition is true, else loop ends.
             }
@@ -194,30 +254,50 @@ namespace GameFunctions
             int loseCounter = 0;
 
             //Check field to the right and up if playerSymbol is found on playerMark and r is greater or equal to 0 
-            while (r >= 0 && c >= 0 && r <= 3 && c <= 3 && playerMark[r, c].Equals(playerSymbol))
+            while (r >= 0 && c >= 0 && r <= 3 && c <= 3)
             {
-                //When condition true, increase loseCounter +1
-                loseCounter++;
-                //move one field to the right and up
-                if (c != 3 && r != 0)
+                if (playerMark[r, c].Contains(Convert.ToString(playerSymbol)))
                 {
-                    r--;
-                    c++;
+                    Console.WriteLine($"Enter digi check 1 rUP l \nlosecounter in while above in playermarkcheck = {loseCounter}\npm = {playerMark[r, c]} {r} | {c}");
+
+                    //When condition true, increase loseCounter +1
+                    loseCounter++;
+                    break;
+                } else
+                {
+                    break;
+                }
+                //move one field to the right and up
+                if (c != 0 && r != 3)
+                {
+                    Console.WriteLine($"Enter digi check if check \nlosecounter in while above in playermarkcheck = {loseCounter}\npm = {playerMark[r, c]} {r} | {c}");
+
+                    r++;
+                    c--;
                 }
                 //Loop repeats if condition is true, else loop ends.
             }
 
             //Check field leftDown
             
-            while (r >= 0 && c >= 0 && r <= 3 && c <= 3 && playerMark[r, c].Equals(playerSymbol))
+            while (r >= 0 && c >= 0 && r <= 3 && c <= 3)
             {
-                //When condition true, increase loseCounter +1
-                loseCounter++;
-                //move one field to the left and down
-                if (c != 0 && r != 3)
+                if (playerMark[r, c].Contains(Convert.ToString(playerSymbol)))
                 {
-                    r++;
-                    c--;
+                    Console.WriteLine($"Enter digi check 1 LDo \nlosecounter in while above in playermarkcheck = {loseCounter}\npm = {playerMark[r, c]} {r} | {c}");
+
+                    //When condition true, increase loseCounter +1
+                    loseCounter++;
+                    break;
+                } else 
+                { 
+                    break; 
+                }   
+                //move one field to the left and down
+                if (c != 3 && r != 0)
+                {
+                    r--;
+                    c++;
                 }
                 //Loop repeats if condition is true, else loop ends.
             }
@@ -241,29 +321,45 @@ namespace GameFunctions
             int loseCounter = 0;
 
             //Check field leftUp
-            while (r >= 0 && c >= 0 && r <= 3 && c <= 3 && playerMark[r, c].Equals(playerSymbol))
+            while (r >= 0 && c >= 0 && r <= 3 && c <= 3)
             {
+                Console.WriteLine($"Enter digi check 2 LuP \nlosecounter in while above in playermarkcheck = {loseCounter}\npm = {playerMark[r, c]} {r} | {c}");
+
+                if (playerMark[r, c].Contains(Convert.ToString(playerSymbol))) { 
                 //When condition true, increase loseCounter +1
                 loseCounter++;
+                    break;
+                }
+                else { break; }
                 //move one field to the right and down
                 if (c != 0 && r != 3)
                 {
+                    Console.WriteLine($"Enter digi check 2 RDo\nlosecounter in while above in playermarkcheck = {loseCounter}\npm = {playerMark[r, c]} {r} | {c}");
+
                     r++;
-                    c++;
+                    c--;
                 }
                 //Loop repeats if condition is true, else loop ends.
             }
 
             //Check field rightDown
-            while (r >= 0 && c >= 0 && r <= 3 && c <= 3 && playerMark[r, c].Equals(playerSymbol))
+            while (r >= 0 && c >= 0 && r <= 3 && c <= 3)
             {
-                //When condition true, increase loseCounter +1
-                loseCounter++;
-                //move one field to the left and down
-                if (c != 0 && r != 3)
+                if (playerMark[r, c].Contains(Convert.ToString(playerSymbol)))
                 {
-                    r--;
-                    c--;
+                    Console.WriteLine($"Enter digi check 2 \nlosecounter in while above in playermarkcheck = {loseCounter}\npm = {playerMark[r, c]} {r} | {c}");
+
+                    //When condition true, increase loseCounter +1
+                    loseCounter++;
+                }
+                else { break;}
+                //move one field to the left and down
+                if (c != 3 && r != 3)
+                {
+                    Console.WriteLine($"Enter digi check 2 pt2 \nlosecounter in while above in playermarkcheck = {loseCounter}\npm = {playerMark[r, c]} {r} | {c}");
+
+                    r++;
+                    c++;
                 }
                 //Loop repeats if condition is true, else loop ends.
             }
@@ -278,7 +374,7 @@ namespace GameFunctions
 
         public static void PlayingField(string[,] playerMark, int player, char playerSymbol)
         {
-            Console.Clear();
+            //Console.Clear();
             const string C_rows = "     A   B   C   D";
             const string C_playingfield = "   +---+---+---+---+";
             Console.WriteLine($"    Player {player} - your symbole: {playerSymbol}\n\n");

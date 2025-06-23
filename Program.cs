@@ -70,9 +70,9 @@ namespace three_in_a_row
                         playerChoice = true;
 
                         GameFunctions.GameFunctions.VerticalCheck(player, playerMark, r, c, playerSymbol);
-                        GameFunctions.GameFunctions.HorizontalCheck(player, playerMark, r, c, playerSymbol);
-                        GameFunctions.GameFunctions.DiagonalCheck(player, playerMark,r, c, playerSymbol);
-                        GameFunctions.GameFunctions.Diagonal2Check(player, playerMark,r, c, playerSymbol);
+                        //GameFunctions.GameFunctions.HorizontalCheck(player, playerMark, r, c, playerSymbol);
+                        //GameFunctions.GameFunctions.DiagonalCheck(player, playerMark,r, c, playerSymbol);
+                        //GameFunctions.GameFunctions.Diagonal2Check(player, playerMark,r, c, playerSymbol);
                     }
 
                     //Erhöhung des drawCounters für abgeschlossene Spielerrunde
@@ -105,9 +105,9 @@ namespace three_in_a_row
                     playerChoice = true;
 
                     GameFunctions.GameFunctions.VerticalCheck(player, playerMark, r, c, playerSymbol);
-                    GameFunctions.GameFunctions.HorizontalCheck(player, playerMark, r, c, playerSymbol);
-                    GameFunctions.GameFunctions.DiagonalCheck(player, playerMark, r, c, playerSymbol);
-                    GameFunctions.GameFunctions.Diagonal2Check(player, playerMark, r, c, playerSymbol);
+                //    GameFunctions.GameFunctions.HorizontalCheck(player, playerMark, r, c, playerSymbol);
+                //    GameFunctions.GameFunctions.DiagonalCheck(player, playerMark, r, c, playerSymbol);
+                //    GameFunctions.GameFunctions.Diagonal2Check(player, playerMark, r, c, playerSymbol);
                 }
 
                 //Erhöhung des drawCounters für abgeschlossene Spielerrunde

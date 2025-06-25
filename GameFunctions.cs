@@ -326,10 +326,6 @@ namespace GameFunctions
                 Environment.Exit(0);
             }
 
-
-
-
-
         }
 
         public static void Diagonal2Check(int player, string[,] playerMark, int r, int c, char playerSymbol)

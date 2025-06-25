@@ -48,26 +48,28 @@ namespace three_in_a_row
                 //index int for row and column.
                 int r;
                 int c;
-                
+
+                // First we expect that players input is wrong.
                 playerChoice = false;
                 do
                 {
+                    // Clean console, than show playing field. Ask player about input. More in GameFunctions.cs
                     Console.Clear();
                     GameFunctions.GameFunctions.PlayingField(playerMark, player, playerSymbol);
                     int.TryParse(GameFunctions.GameFunctions.GetPlayerRowInput(player), out r);
                     c = GameFunctions.GameFunctions.GetPlayerColumnInput(player);
                    
-                    // Wir prüfen mittels einer IF Abfrage ob das Spielfeld belegt ist.
-                    // Falls der Fall true ist, gibt es eine Ausgabe an den Spieler.
+                    // Check via IF-Statement if field is already taken.
+                    // If true, provide error output to player.
                     if (playerMark[r, c] != " ")
                     {
                         Console.WriteLine($"Field is already taken.\n{C_HitEnter}");
                         Console.ReadLine();
-
                     }
-                    // Falls das Spielfeld frei ist, also der Fall false, wird der failsafe Playerchoice
-                    // true geschaltet, damit die DO-WHILE Schleife abbricht und das Spielersymbol X
-                    // wird auf das Spielfeld mit dem Index gesetzt.
+
+                    // If playing field isn't taken, PlayerChoice comes true.
+                    // So Do-While loop breaks later. 
+                    // Meanwhile we start into checking winning condition
                     else
                     {
                         playerMark[r, c] = Convert.ToString(playerSymbol);
@@ -79,23 +81,26 @@ namespace three_in_a_row
                         GameFunctions.GameFunctions.Diagonal2Check(player, playerMark,r, c, playerSymbol);
                     }
 
-                    //Erhöhung des drawCounters für abgeschlossene Spielerrunde
+                    // increasing drawCounter +1
                     drawCounter++;
                 }
                 while (!playerChoice);
-                // Operator, der zwischen den Spielern wechselt. Wenn Player 1 false, dann Player 1
+                // Operator, which switches from player one to two and back.
                 player = (player == 1) ? 2 : 1;
                 playerSymbol = (playerSymbol == 'O') ? 'X' : 'O';
             }
 
+            // if drawCounter is greater or equal to 15, game ends w/o any winner in draw.
             if (drawCounter >= 15)
             {
                 GameFunctions.GameFunctions.PlayingField(playerMark, player, playerSymbol);
                 Console.WriteLine("\n\n!! DRAW !!");
+                Console.ReadLine();
             }
             else
             {
-                Console.WriteLine($"Error - left while(drawCounter > 15) loop while drawCounter is {drawCounter}.");
+                Console.WriteLine($"Warning! - Unexpected Error - left while(drawCounter > 15) loop while drawCounter is {drawCounter}.");
+                Console.ReadLine();
             }
         }
     }

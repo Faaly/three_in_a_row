@@ -6,7 +6,7 @@ namespace GameFunctions
 { 
     public class GameFunctions
     {
-        const string C_anyKey = "     Please press any key";
+        const string C_HitEnter = "     Please press Enter.";
         public GameFunctions()
 	    {
         }
@@ -47,7 +47,7 @@ namespace GameFunctions
                                 rowInput = "3";
                                 break;
                             default:
-                                Console.WriteLine($"Warning! - Switch Case Exeption occured!\n{C_anyKey}");
+                                Console.WriteLine($"Warning! - Switch Case Exeption occured!\n{C_HitEnter}");
                                 break;
                         }
                         rowInputCheck = true;
@@ -55,12 +55,12 @@ namespace GameFunctions
                     else //If checks are valid, player will leave loop.
                          //elsewise player has to enter again his input.
                     {
-                        Console.WriteLine($"Error - Invalid Char Input.\n{C_anyKey}");
+                        Console.WriteLine($"Error - Invalid Char Input.\n{C_HitEnter}");
                         Console.ReadLine();
                     }
                 } else
                 {
-                    Console.WriteLine($"Error - Input is null or empty.\n{C_anyKey}");
+                    Console.WriteLine($"Error - Input is null or empty.\n{C_HitEnter}");
                     Console.ReadLine();
 
                 }
@@ -94,13 +94,13 @@ namespace GameFunctions
                     }
                     else //If checks are valid, player will leave loop. Else Error
                     {
-                        Console.WriteLine($"Error - Invalid Input\n{C_anyKey}");
+                        Console.WriteLine($"Error - Invalid Input\n{C_HitEnter}");
                         Console.ReadLine();
                     }
                 }
                 else //If checks are valid, player will leave loop. Else Error
                 {
-                    Console.WriteLine($"Error - Invalid Input\n{C_anyKey}");
+                    Console.WriteLine($"Error - Invalid Input\n{C_HitEnter}");
                     Console.ReadLine ();
                 }
             } while (columnInputCheck == false);
@@ -390,6 +390,7 @@ namespace GameFunctions
                 //Loop repeats if condition is true, else loop ends.
             }
 
+            
             if (loseCounter >= 4)
             {
                 PlayingField(playerMark, player, playerSymbol);
@@ -413,6 +414,7 @@ namespace GameFunctions
                 for (int j = 0; j < 4; j++)
                 {
                     Console.Write($" {playerMark[j, i]} |");
+                    
                     
                 }
                 Console.WriteLine();

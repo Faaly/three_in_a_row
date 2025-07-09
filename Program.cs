@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -12,7 +13,6 @@ namespace three_in_a_row
     {
         static void Main(string[] args)
         {
-            
             //Coordinate system for the game, from A-D and 1-4.
             string[] row = new string[]
             {
@@ -75,6 +75,7 @@ namespace three_in_a_row
                         playerMark[r, c] = Convert.ToString(playerSymbol);
                         playerChoice = true;
 
+                        //Various checks to check if any player has lost. Contains player (1 or 2), playerSymbol (X or O) and Player Coordinates
                         GameFunctions.GameFunctions.VerticalCheck(player, playerMark, r, c, playerSymbol);
                         GameFunctions.GameFunctions.HorizontalCheck(player, playerMark, r, c, playerSymbol);
                         GameFunctions.GameFunctions.DiagonalCheck(player, playerMark,r, c, playerSymbol);
@@ -93,14 +94,18 @@ namespace three_in_a_row
             // if drawCounter is greater or equal to 15, game ends w/o any winner in draw.
             if (drawCounter >= 15)
             {
+                //First console will be cleared, then PlayingField will be shown for a final time and players will be notified it is draw
+                Console.Clear();
                 GameFunctions.GameFunctions.PlayingField(playerMark, player, playerSymbol);
                 Console.WriteLine("\n\n!! DRAW !!");
                 Console.ReadLine();
+                Environment.Exit(0);
             }
             else
             {
                 Console.WriteLine($"Warning! - Unexpected Error - left while(drawCounter > 15) loop while drawCounter is {drawCounter}.");
                 Console.ReadLine();
+                Environment.Exit(0);
             }
         }
     }

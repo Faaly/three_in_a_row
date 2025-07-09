@@ -6,10 +6,9 @@ namespace GameFunctions
 { 
     public class GameFunctions
     {
+        //Const for user input
         const string C_HitEnter = "     Please press Enter.";
-        public GameFunctions()
-	    {
-        }
+
         //Function that ask the player for input
         //Input will be checked if char input is valid.
         public static string GetPlayerRowInput(int player)
@@ -65,8 +64,6 @@ namespace GameFunctions
 
                 }
 
-
-
             } while (rowInputCheck == false);
             return rowInput;
         }
@@ -118,7 +115,7 @@ namespace GameFunctions
             //Check field above if playerSymbol is found on playerMark and c is greater or equal to 0
             while (c >= 0) //C means for column. 1-4
             {
-                
+                // If Playermark contains playersymbol, increase losecounter +1
                 if (playerMark[r, c].Contains(Convert.ToString(playerSymbol)))
                 {
                     loseCounter += 1;
@@ -172,14 +169,9 @@ namespace GameFunctions
 
             if (loseCounter >= 4)
             {
-                PlayingField(playerMark, player, playerSymbol);
-                Console.WriteLine($"Player {player} has lost the game!");
-                Console.ReadLine();
-                Environment.Exit(0);
-                //Spielfeld anzeigen!
+                Game_Over(playerMark, player, playerSymbol);
             }
         }
-
 
         //Function that checks if inside of the playing field in horizontal way same symbols are found
         public static void HorizontalCheck(int player, string[,] playerMark, int r, int c, char playerSymbol)
@@ -215,7 +207,6 @@ namespace GameFunctions
                 //Loop repeats if condition is true, else loop ends.
             }
 
-
             //Reset temp cords back to c and r.
             c = temp_c;
             r = temp_r;
@@ -245,11 +236,7 @@ namespace GameFunctions
 
             if (loseCounter >= 4)
             {
-                PlayingField(playerMark, player, playerSymbol);
-                Console.WriteLine($"Player {player} has lost the game!");
-                Console.ReadLine();
-                Environment.Exit(0);
-                //Spielfeld anzeigen!
+                Game_Over(playerMark, player, playerSymbol);
             }
         }
 
@@ -293,7 +280,6 @@ namespace GameFunctions
             r = temp_r;
 
             //Check field leftDown
-
             while (r >= 0 && c <= 3)
             {
                 if (playerMark[r, c].Contains(Convert.ToString(playerSymbol)))
@@ -320,12 +306,8 @@ namespace GameFunctions
 
             if (loseCounter >= 4)
             {
-                PlayingField(playerMark, player, playerSymbol);
-                Console.WriteLine($"Player {player} has lost the game!");
-                Console.ReadLine();
-                Environment.Exit(0);
+                Game_Over(playerMark, player, playerSymbol);
             }
-
         }
 
         public static void Diagonal2Check(int player, string[,] playerMark, int r, int c, char playerSymbol)
@@ -386,39 +368,43 @@ namespace GameFunctions
                 //Loop repeats if condition is true, else loop ends.
             }
 
-            
             if (loseCounter >= 4)
             {
-                PlayingField(playerMark, player, playerSymbol);
-                Console.WriteLine($"Player {player} has lost the game!");
-                Console.ReadLine();
-                Environment.Exit(0);
+                Game_Over(playerMark,player,playerSymbol);
             }
         }
 
+        //PlayingField clears the console, prints the while playing field with current playerSymbols 
         public static void PlayingField(string[,] playerMark, int player, char playerSymbol)
         {
-            //Console.Clear();
+            Console.Clear();
             const string C_rows = "     A   B   C   D";
             const string C_playingfield = "   +---+---+---+---+";
             Console.WriteLine($"    Player {player} - your symbole: {playerSymbol}\n\n");
             Console.WriteLine(C_rows);
-            Console.WriteLine(C_playingfield);
+            Console.WriteLine(C_playingfield); //upper border
+            //For loop for rows
             for (int i = 0; i < 4; i++)
             {
                 Console.Write($" {i + 1} |");
+                //for loop for columns
                 for (int j = 0; j < 4; j++)
                 {
                     Console.Write($" {playerMark[j, i]} |");
-                    
-                    
                 }
                 Console.WriteLine();
-            }
+            }//lower border
             Console.WriteLine(C_playingfield);
         }
 
-
-
+        //Game_Over clears console, prints the playing field a final time and also prints which player has lost. 
+        public static void Game_Over(string[,] playerMark, int player, char playerSymbol)
+        {
+            Console.Clear();
+            PlayingField(playerMark, player, playerSymbol);
+            Console.WriteLine($"Player {player} has lost the game!");
+            Console.ReadLine();
+            Environment.Exit(0);
+        }
     }
 }

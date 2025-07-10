@@ -17,10 +17,12 @@ Three_in_a_row is a small, turn-based terminal game for two players. The objecti
 # Project Structure
 ```makefile
 📦 two_in_a_row
-┣ 📜 Program.cs
-┣ 📜 GameFunctions.cs
+┣ 📜 Program.cs           # Contains the entry point and main logic of the program.
+┣ 📜 GameFunctions.cs     # Contains logic of the game and functions.
 ┣ 📜 three_in_a_row.csproj
-
+┣ 📜 App.config
+┣ 📂 Properties/
+└ ┣ 📜 AssemblyInfo.cs    # Contains Metadata
 ```
 ---
 

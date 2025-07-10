@@ -92,7 +92,7 @@ namespace three_in_a_row
             }
 
             // if drawCounter is greater or equal to 15, game ends w/o any winner in draw.
-            if (drawCounter >= 15)
+            if (drawCounter >= 16)
             {
                 //First console will be cleared, then PlayingField will be shown for a final time and players will be notified it is draw
                 Console.Clear();

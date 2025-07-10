@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 
 namespace GameFunctions
-{ 
+{
     public class GameFunctions
     {
         //Const for user input
@@ -15,7 +15,7 @@ namespace GameFunctions
         {
             string rowInput;
             bool rowInputCheck = false;
-            
+
             do
             {
                 //We ask the player for input.
@@ -24,7 +24,7 @@ namespace GameFunctions
                 Console.Write("Please choose a column: ");
                 rowInput = Console.ReadLine();
                 //Check if rowInput is between A-D & is not null or empty. 
-                if (!string.IsNullOrEmpty(rowInput) && rowInput != " " && rowInput != "" )
+                if (!string.IsNullOrEmpty(rowInput) && rowInput != " " && rowInput != "")
                 {
                     rowInput = rowInput.ToUpper();
                     rowInput = rowInput[0].ToString();
@@ -57,7 +57,8 @@ namespace GameFunctions
                         Console.WriteLine($"Error - Invalid Char Input.\n{C_HitEnter}");
                         Console.ReadLine();
                     }
-                } else
+                }
+                else
                 {
                     Console.WriteLine($"Error - Input is null or empty.\n{C_HitEnter}");
                     Console.ReadLine();
@@ -98,7 +99,7 @@ namespace GameFunctions
                 else //If checks are valid, player will leave loop. Else Error
                 {
                     Console.WriteLine($"Error - Invalid Input\n{C_HitEnter}");
-                    Console.ReadLine ();
+                    Console.ReadLine();
                 }
             } while (columnInputCheck == false);
             return columnInput;
@@ -162,7 +163,7 @@ namespace GameFunctions
                 {
                     break;
                 }
-                
+
                 //Loop repeats if condition is true, else loop ends.
             }
 
@@ -213,10 +214,11 @@ namespace GameFunctions
             //Check field to the right if playerSymbol is found on playerMark and c is less or equal to 3 
             while (r <= 3)
             {
-                if(playerMark[r, c].Contains(Convert.ToString(playerSymbol)))
+                if (playerMark[r, c].Contains(Convert.ToString(playerSymbol)))
                 {
                     loseCounter++;
-                } else
+                }
+                else
                 {
                     break;
                 }
@@ -226,10 +228,10 @@ namespace GameFunctions
                 if (r != 3)
                 {
                     r++;
-                } 
-                else 
-                { 
-                    break; 
+                }
+                else
+                {
+                    break;
                 }
                 //Loop repeats if condition is true, else loop ends.
             }
@@ -254,7 +256,7 @@ namespace GameFunctions
             {
                 if (playerMark[r, c].Contains(Convert.ToString(playerSymbol)))
                 {
-                    
+
                     //When condition true, increase loseCounter +1
                     loseCounter++;
                 }
@@ -284,13 +286,14 @@ namespace GameFunctions
             {
                 if (playerMark[r, c].Contains(Convert.ToString(playerSymbol)))
                 {
-                    
+
                     //When condition true, increase loseCounter +1
-                    loseCounter++;}
-                else 
-                { 
-                    break; 
-                }   
+                    loseCounter++;
+                }
+                else
+                {
+                    break;
+                }
                 //move one field to the left and down
                 if (c != 3 && r != 0)
                 {
@@ -321,12 +324,14 @@ namespace GameFunctions
             //Check field leftUp
             while (r >= 0 && c >= 0)
             {
-                
-                if (playerMark[r, c].Contains(Convert.ToString(playerSymbol))) { 
-                //When condition true, increase loseCounter +1
-                loseCounter++;
+
+                if (playerMark[r, c].Contains(Convert.ToString(playerSymbol)))
+                {
+                    //When condition true, increase loseCounter +1
+                    loseCounter++;
                 }
-                else { 
+                else
+                {
                     break;
                 }
                 //move one field to the left and up
@@ -335,8 +340,8 @@ namespace GameFunctions
                     r--;
                     c--;
                 }
-                else 
-                {  
+                else
+                {
                     break;
                 }
                 //Loop repeats if condition is true, else loop ends.
@@ -354,14 +359,14 @@ namespace GameFunctions
                     //When condition true, increase loseCounter +1
                     loseCounter++;
                 }
-                else { break;}
+                else { break; }
                 //move one field to the right and down
                 if (c != 3 && r != 3)
                 {
                     r++;
                     c++;
                 }
-                else 
+                else
                 {
                     break;
                 }
@@ -370,7 +375,7 @@ namespace GameFunctions
 
             if (loseCounter >= 4)
             {
-                Game_Over(playerMark,player,playerSymbol);
+                Game_Over(playerMark, player, playerSymbol);
             }
         }
 
@@ -401,10 +406,12 @@ namespace GameFunctions
         public static void Game_Over(string[,] playerMark, int player, char playerSymbol)
         {
             Console.Clear();
-            PlayingField(playerMark, player, playerSymbol);
+            PlayingField(playerMark,player,playerSymbol);
             Console.WriteLine($"Player {player} has lost the game!");
             Console.ReadLine();
             Environment.Exit(0);
         }
     }
 }
+
+

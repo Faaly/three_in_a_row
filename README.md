@@ -21,8 +21,8 @@ Three_in_a_row is a small, turn-based terminal game for two players. The objecti
 ┣ 📜 GameFunctions.cs     # Contains logic of the game and functions.
 ┣ 📜 three_in_a_row.csproj
 ┣ 📜 App.config
-┣ 📂 Properties/
-└ ┣ 📜 AssemblyInfo.cs    # Contains Metadata
+└ 📂 Properties/
+  ┣ 📜 AssemblyInfo.cs    # Contains Metadata
 ```
 ---
 

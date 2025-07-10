@@ -1,13 +1,11 @@
 # three_in_a_row
-
-This game is still in development!
-
 The goal behind this little project is to learn the language C# and use newly learned concepts such as classes, functions, and more right away in my project. 
+Also to improve my understanding in Github and Visual Studio.
 
 ---
 
 # Overview
-Three_in_a_row is a small turn-based game for two players where you try to place your markers on a 4x4 board, but if you have three of the same symbols vertically, horizontally or diagonally, you lose.
+Three_in_a_row is a small, turn-based terminal game for two players. The objective is to place your markers on a 4x4 board. However, if you have three of the same symbols in a row—vertically, horizontally, or diagonally—you lose. If the entire board is filled and neither player has lost, the game ends in a draw.
 
 ---
 
@@ -23,8 +21,12 @@ Three_in_a_row is a small turn-based game for two players where you try to place
 ┣ 📜 GameFunctions.cs
 ┣ 📜 three_in_a_row.csproj
 
-
 ```
+---
+
+# System Requirements
+Compatible with Visual Studio 2022 or any other IDE that supports C#/.NET
+
 ---
 
 # License

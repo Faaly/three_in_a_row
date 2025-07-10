@@ -1,4 +1,4 @@
-# three_in_a_row
+# three_in_a_row (Final Version)
 The goal behind this little project is to learn the language C# and use newly learned concepts such as classes, functions, and more right away in my project. 
 Also to improve my understanding in Github and Visual Studio.
 
